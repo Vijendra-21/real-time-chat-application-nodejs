@@ -16,10 +16,18 @@ http.listen(PORT,()=>{
 });
 
 const  io = require("socket.io")(http);
+
+const users = {};
+
 io.on('connection',(socket)=>{
     console.log(`conected>>>> socket`);
     socket.on('message',(msg)=>{
         socket.broadcast.emit('message',msg)
+    })
+    socket.on('new-user-joined',(name)=>{
+        // console.log(`new user = ${name}`);
+        users[socket.id] = name;
+        socket.broadcast.emit('user-joined',name)
     })
 })
 

@@ -1,57 +1,54 @@
 const socket = io();
-let names ;
+let userName ;
 let messageInp = document.querySelector('#messageInp');
 let messageArea = document.querySelector('.messageArea')
-
 do {
-    names = prompt(`plz enter your name: `)
-} while (!names)
+    userName = prompt(`plz enter your name: `)
+} while (!userName)
 
 messageInp.addEventListener('keyup',(e)=>{
     if(e.key === 'Enter'){
-        sendMessage(e.target.value)
+        var msg={
+            user : userName,
+            message : e.target.value
+        }
+        appendMessage(msg,'right');
+        socket.emit('message',msg)  
+        messageInp.value = ''
+        scrollToBottom();
     }
 })
-
-function sendMessage(message){
-    // console.log(message);
-    let msg={
-        user : names,
-        message : message.trim()
-    }
-
-    //append smg
-    appendMessage(msg,'right')
-    messageInp.value = ''
-    scrollToBottom();
-
-    //send to server
-    socket.emit('message',msg)
-     
-}
-function appendMessage(msg,type){
-    
+ 
+function appendMessage(msg,position){
     let mainDiv = document.createElement('div');
-    let className = type;
+    let className = position;
     mainDiv.classList.add(className,'message')
-
-    let markup= `
-        <h3>${msg.user}</h3>
-        <p>${msg.message}</p>
-    `
+    let markup= `<p><b>${msg.user}: </b> ${msg.message}</p>`
     mainDiv.innerHTML = markup;
     messageArea.appendChild(mainDiv)
 }
 
-//recive the incoming msg
 socket.on('message',(msg)=>{
     appendMessage(msg,'left')
     scrollToBottom();
 })
 
 function scrollToBottom (){
-    messageArea.scrollTop = messageArea.scrollHeight;
+    messageArea.scrollTop = messageArea.scrollHeight; 
+}
+const apendNewUser = (msg,position)=>{
+    let mainDiv = document.createElement('div');
+    let className = position;
+    mainDiv.classList.add(className,'message')
+    let markup= `<p><b>${msg}: </b> joined chat!!</p>`
+    mainDiv.innerHTML = markup;
+    messageArea.appendChild(mainDiv)
 }
 
+socket.emit('new-user-joined',userName)
+socket.on('user-joined',(userName)=>{
+    apendNewUser(userName,'left')
+    scrollToBottom();
+}) 
 
 
