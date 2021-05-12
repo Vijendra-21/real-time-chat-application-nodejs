@@ -51,15 +51,15 @@ body{
     clear: both;
     max-width: 80%;
 }
-#send{
-    display: block;
+.send{
+    width: 50%;
     margin: auto;
     text-align: center;
-    /* max-width: 600px; */
-    width: 100%;
+    border: 2px solid black;
     
 }
 #messageInp{
-    width: 50%;
+    width: 99%;
     height: 30px;
+    font-size: 22px;
 }
