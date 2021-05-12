@@ -1,9 +1,14 @@
+*{
+    margin: 0px;
+    padding: 0px;
+}
 body{
     background-color:rgb(147, 147, 250)
+    
 }
 .container{
     border: 2px solid black;
-    width: 60%;
+    width: 50%;
     margin: auto;
     display: block;
     /* display: flex;
@@ -13,26 +18,38 @@ body{
     overflow-y: auto;
 }
 .logo{
-    width: 60%;
+    width: 50%;
     margin: auto;
     text-align: center;
     border: 2px solid red;
 }
 .message{
-    margin-top: 20px;
-    width: 40%;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 5px;
+    margin-bottom: 10px;
+    width: auto;
     background-color: rgb(229, 255, 158);
 
 }
 .left{
     float: left;
     clear: both;
-    background-color: rgb(238, 97, 97);
+    background-color:white;
+}
+.center{
+    /* text-align: center; */
+    align-content: center;
+    margin-left: 35%;
+    clear: both;
+    width: 30%;
+    font-size: 120%;
+    background-color:rgb(255, 111, 111);
 }
 .right{
     background-color: darkturquoise;
     float: right;
     clear: both;
+    max-width: 80%;
 }
 #send{
     display: block;

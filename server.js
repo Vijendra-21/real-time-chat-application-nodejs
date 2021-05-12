@@ -20,14 +20,16 @@ const  io = require("socket.io")(http);
 const users = {};
 
 io.on('connection',(socket)=>{
-    console.log(`conected>>>> socket`);
-    socket.on('message',(msg)=>{
-        socket.broadcast.emit('message',msg)
+    socket.on('send',(msg)=>{
+        socket.broadcast.emit('recieve',{message:msg , name:users[socket.id]})
     })
     socket.on('new-user-joined',(name)=>{
-        // console.log(`new user = ${name}`);
         users[socket.id] = name;
         socket.broadcast.emit('user-joined',name)
+    })
+    socket.on('disconnect',(msg)=>{
+        socket.broadcast.emit('left',users[socket.id]);
+        delete users[socket.id];
     })
 })
 
