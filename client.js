@@ -1,4 +1,4 @@
-const socket = io('http://localhost:5000');
+const socket = io('https://goraji.github.io/real-time-chat-application-nodejs.github.io/');
 let userName ;
 let messageInp = document.querySelector('#messageInp');
 let messageArea = document.querySelector('.messageArea')
