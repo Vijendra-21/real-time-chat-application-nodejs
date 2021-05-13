@@ -1,4 +1,4 @@
-const socket = io('https://goraji.herokuapp.com');
+const socket = io();
 let userName ;
 let messageInp = document.querySelector('#messageInp');
 let messageArea = document.querySelector('.messageArea')
